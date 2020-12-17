@@ -1,18 +1,18 @@
-/* eslint-disable no-unused-vars */
+'use strict'
 module.exports = {
   up: async (queryInterface, Sequelize) => {
-    await queryInterface.createTable('users', {
+    await queryInterface.createTable('rooms', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      email: {
+      room_name: {
         type: Sequelize.STRING
       },
-      password: {
-        type: Sequelize.STRING
+      room_capacity: {
+        type: Sequelize.INTEGER
       },
       photo: {
         type: Sequelize.STRING
@@ -32,6 +32,6 @@ module.exports = {
     })
   },
   down: async (queryInterface, Sequelize) => {
-    await queryInterface.dropTable('users')
+    await queryInterface.dropTable('rooms')
   }
 }

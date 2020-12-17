@@ -16,11 +16,13 @@ const Register = async (req, res) => {
         message: 'email already registered'
       })
     }
+
     const hash = await auth.hashPassword(password)
     let urlPhoto = ''
     if (photo) {
       urlPhoto = `${req.protocol}://${req.hostname}:10010/uploads/users/${photo.filename}`
     }
+
     await model.users.create({
       email: email,
       password: hash,
@@ -28,6 +30,7 @@ const Register = async (req, res) => {
       created_at: new Date(),
       updated_at: new Date()
     })
+
     return res.json({
       code: 200,
       status: 'success',

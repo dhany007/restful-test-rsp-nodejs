@@ -11,5 +11,7 @@ db.sequelize = sequelize
 db.Sequelize = Sequelize
 
 db.users = require('./users')(sequelize, Sequelize)
+db.bookings = require('./bookings')(sequelize, Sequelize)
+db.rooms = require('./rooms')(sequelize, Sequelize)
 
 module.exports = db

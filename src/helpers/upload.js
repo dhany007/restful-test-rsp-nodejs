@@ -1,4 +1,3 @@
-const moment = require('moment')
 const multer = require('multer')
 const path = require('path')
 
@@ -20,9 +19,9 @@ const uploadProfil = multer({
 })
 
 const storageRoom = multer.diskStorage({
-  destination: path.join(__dirname, '../../uploads'),
+  destination: path.join(__dirname, '../../uploads/rooms'),
   filename (req, file, cb) {
-    cb(null, `ROOM-${req.body.room_name}-${moment(new Date()).format('YYYYMMDD')}`)
+    cb(null, `ROOM_${req.body.room_name}${path.extname(file.originalname)}`)
   }
 })
 
