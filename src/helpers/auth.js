@@ -15,7 +15,8 @@ const comparePassword = async (password, userPassword) => {
 }
 
 const Access = async (req, res, next) => {
-  const headerSecret = req.token
+  const headerSecret = req.headers.token
+
   jwt.verify(headerSecret, process.env.jwtSecret, (err) => {
     if (err && err.name === 'TokenExpiredError') {
       return res.status(400).send({

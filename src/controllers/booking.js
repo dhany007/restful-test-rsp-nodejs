@@ -138,7 +138,7 @@ const checkIn = async (req, res) => {
 
   try {
     const validBooking = await model.sequelize.query(
-      'SELECT * FROM bookings WHERE id = :id AND check_in_time IS NOT NULL',
+      'SELECT * FROM bookings WHERE id = :id AND check_in_time IS NULL',
       {
         replacements: {
           id: bookingId
