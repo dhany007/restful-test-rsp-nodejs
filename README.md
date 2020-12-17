@@ -1,3 +1,3 @@
-# RESTful RSP
+# RESTful Meeting Room Booking RSP 
 
-Dokumentasi Postman dapat mengunjungi [LINK](http://example.com/) ini.
+Dokumentasi Postman dapat mengunjungi [LINK](https://documenter.getpostman.com/view/9181167/TVspk9hR) ini.
