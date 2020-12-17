@@ -16,7 +16,7 @@ route
   .post(
     '/',
     auth.Access,
-    valid.ruleAvailableRoom(),
+    valid.ruleBookingRoom(),
     valid.validate,
     bookingCont.bookingRoom
   )

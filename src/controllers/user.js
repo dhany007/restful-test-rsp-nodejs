@@ -2,6 +2,7 @@
 const jwt = require('jsonwebtoken')
 const auth = require('../helpers/auth')
 const model = require('../models/index')
+const mail = require('../helpers/sendEmail')
 
 const Register = async (req, res) => {
   const { email, password } = req.body
@@ -30,6 +31,11 @@ const Register = async (req, res) => {
       created_at: new Date(),
       updated_at: new Date()
     })
+
+    // selesaikan pendaftaran, baru kemudian menerima email
+    const title = 'Pendaftaran'
+    const text = 'Selamat, kamu sudah terdaftar'
+    mail.Send(email, title, text)
 
     return res.json({
       code: 200,

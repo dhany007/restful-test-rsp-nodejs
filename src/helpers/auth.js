@@ -14,6 +14,10 @@ const comparePassword = async (password, userPassword) => {
   return valid
 }
 
+const decodeToken = async (token) => {
+  return jwt.decode(token)
+}
+
 const Access = async (req, res, next) => {
   const headerSecret = req.headers.token
 
@@ -39,5 +43,6 @@ const Access = async (req, res, next) => {
 module.exports = {
   hashPassword,
   comparePassword,
-  Access
+  Access,
+  decodeToken
 }

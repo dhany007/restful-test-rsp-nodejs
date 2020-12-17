@@ -1,5 +1,7 @@
 const moment = require('moment')
 const model = require('../models/index')
+const mail = require('../helpers/sendEmail')
+const auth = require('../helpers/auth')
 
 const availableRoom = async (req, res) => {
   let bookingTime = req.query.booking_time
@@ -59,7 +61,6 @@ const bookingRoom = async (req, res) => {
 
   try {
     const roomExist = await model.rooms.findAll({ where: { id: roomId } })
-    console.log(roomExist)
     if (roomExist.length === 0) {
       return res.status(400).send({
         code: 400,
@@ -118,10 +119,29 @@ const bookingRoom = async (req, res) => {
       updated_at: new Date()
     })
 
+    const dataBooking = await model.sequelize.query(
+      'SELECT * FROM bookings WHERE room_id = :id AND user_id = :userId AND DATE(booking_time) = :bookingTime',
+      {
+        replacements: {
+          id: roomId,
+          userId: userId,
+          bookingTime: bookingTime
+        },
+        type: model.sequelize.QueryTypes.SELECT
+      }
+    )
+
+    // selesaikan bookingan, baru kemudian menerima email
+    const dataUser = await auth.decodeToken(req.headers.token)
+    const title = 'Booking Room'
+    const text = `Kamu booking room untuk tanggal ${bookingTime} dengan Booking ID ${dataBooking[0].id} `
+    mail.Send(dataUser.email, title, text)
+
     return res.json({
       code: 200,
       status: 'success',
-      message: 'success booking room'
+      message: 'success booking room',
+      data: dataBooking
     })
   } catch (error) {
     console.log(error)
